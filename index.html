@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
 
+<style>
+body{
+  background:black;
+  color:#ff4da6;
+  text-align:center;
+  font-family:Arial;
+  overflow:hidden;
+}
+
+#main{display:none;}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4da6;
+  color:white;
+  cursor:pointer;
+  margin:10px;
+}
+
+.heart{
+  position:absolute;
+  color:red;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall{
+  from{transform:translateY(-100px);}
+  to{transform:translateY(100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🔐 Enter Password</h1>
+<input type="password" id="pass">
+<button onclick="unlock()">Unlock ❤️</button>
+
+<div id="main">
+  <h1 id="text"></h1>
+
+  <h2 id="timer"></h2>
+
+  <button onclick="alert('I LOVE YOU ❤️')">YES 💖</button>
+  <button id="noBtn">NO 😜</button>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+// PASSWORD
+function unlock(){
+  if(document.getElementById("pass").value==="Nafeesa"){
+    document.getElementById("main").style.display="block";
+    document.querySelector("h1").style.display="none";
+    document.getElementById("music").play();
+    typeText();
+    startHearts();
+    startTimer();
+  }
+}
+var msg="Hi ❤️ I made this only for you...";
+var i=0;
+function typeText(){
+  if(i<msg.length){
+    document.getElementById("text").innerHTML+=msg.charAt(i);
+    i++;
+    setTimeout(typeText,50);
+  }
+}
+
+// FALLING HEARTS
+function startHearts(){
+  setInterval(()=>{
+    var heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+20+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  },300);
+}
+
+// COUNTDOWN (since meeting date)
+var meetDate=new Date("2025-03-01");
+function startTimer(){
+  setInterval(()=>{
+    var now=new Date();
+    var diff=now-meetDate;
+    var days=Math.floor(diff/86400000);
+    document.getElementById("timer").innerHTML=
+    "Time since I met you 💖: "+days+" days";
+  },1000);
+}
+
+// NO BUTTON RUN AWAY 😆
+document.getElementById("noBtn").onmouseover=function(){
+  this.style.position="absolute";
+  this.style.left=Math.random()*80+"%";
+  this.style.top=Math.random()*80+"%";
+}
+</script>
+
+</body>
+</html>
