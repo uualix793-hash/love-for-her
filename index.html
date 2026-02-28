@@ -2,109 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For My Love ❤️</title>
+<title>For My Love 💖</title>
 
 <style>
 body{
-  background:black;
-  color:#ff4da6;
-  text-align:center;
-  font-family:Arial;
+  margin:0;
+  height:100vh;
+  background: radial-gradient(circle at top, #1a002b, #000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family: 'Segoe UI', sans-serif;
   overflow:hidden;
-}
-
-#main{display:none;}
-
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#ff4da6;
   color:white;
-  cursor:pointer;
-  margin:10px;
 }
 
+/* Glass Card */
+.card{
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.08);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,0,128,0.4);
+  animation: fade 2s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:scale(0.8);}
+  to{opacity:1; transform:scale(1);}
+}
+
+h1{
+  font-weight:300;
+  letter-spacing:2px;
+}
+
+/* Buttons */
+button{
+  margin:15px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.yes{
+  background:#ff007f;
+  color:white;
+  box-shadow:0 0 20px #ff007f;
+}
+
+.yes:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 40px #ff007f;
+}
+
+.no{
+  background:transparent;
+  color:white;
+  border:1px solid #fff;
+}
+
+/* Floating Hearts */
 .heart{
   position:absolute;
-  color:red;
-  animation: fall 5s linear infinite;
+  color:#ff007f;
+  font-size:20px;
+  animation: float 6s linear infinite;
 }
 
-@keyframes fall{
-  from{transform:translateY(-100px);}
-  to{transform:translateY(100vh);}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 </style>
 </head>
 
 <body>
 
-<h1>🔐 Enter Password</h1>
-<input type="password" id="pass">
-<button onclick="unlock()">Unlock ❤️</button>
-
-<div id="main">
+<div class="card">
   <h1 id="text"></h1>
 
-  <h2 id="timer"></h2>
-
-  <button onclick="alert('I LOVE YOU ❤️')">YES 💖</button>
-  <button id="noBtn">NO 😜</button>
+  <button class="yes" onclick="alert('I LOVE YOU ❤️')">YES 💖</button>
+  <button class="no" id="noBtn">NO 😜</button>
 </div>
 
-<audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
-</audio>
-
 <script>
-// PASSWORD
-function unlock(){
-  if(document.getElementById("pass").value==="Nafeesa"){
-    document.getElementById("main").style.display="block";
-    document.querySelector("h1").style.display="none";
-    document.getElementById("music").play();
-    typeText();
-    startHearts();
-    startTimer();
-  }
-}
-var msg="Hi ❤️ I made this only for you...";
+// Typing Effect
+var msg="Hi ❤️ I made this modern website only for you...";
 var i=0;
-function typeText(){
+function typing(){
   if(i<msg.length){
     document.getElementById("text").innerHTML+=msg.charAt(i);
     i++;
-    setTimeout(typeText,50);
+    setTimeout(typing,40);
   }
 }
+typing();
 
-// FALLING HEARTS
-function startHearts(){
-  setInterval(()=>{
-    var heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*20+20+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),5000);
-  },300);
-}
+// Floating Hearts
+setInterval(()=>{
+  var heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=Math.random()*20+10+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},300);
 
-// COUNTDOWN (since meeting date)
-var meetDate=new Date("2025-03-01");
-function startTimer(){
-  setInterval(()=>{
-    var now=new Date();
-    var diff=now-meetDate;
-    var days=Math.floor(diff/86400000);
-    document.getElementById("timer").innerHTML=
-    "Time since I met you 💖: "+days+" days";
-  },1000);
-}
-
-// NO BUTTON RUN AWAY 😆
+// NO button run away
 document.getElementById("noBtn").onmouseover=function(){
   this.style.position="absolute";
   this.style.left=Math.random()*80+"%";
